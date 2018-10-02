@@ -32,13 +32,14 @@ var ViewModel = function(){
       setTimeout(function() {
         marker.setAnimation(null);
       }, 750);
+      infoWindow.setContent(contentString);
       infoWindow.open(map, marker);
     });
   });
 
     // create infoWindow for museum marker
     var infoWindow = new google.maps.InfoWindow({
-      content: this.contentString
+      content: self.contentString
     });
 
     // Create an observable for filter museum
