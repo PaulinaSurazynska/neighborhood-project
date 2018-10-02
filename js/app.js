@@ -26,10 +26,6 @@ var ViewModel = function(){
     // bind marker to the museum
     museumItem.marker = marker
 
-    // create infoWindow for museum marker
-    var infoWindow = new google.maps.InfoWindow({
-      content: contentString
-    });
     // and open infowindow when clicked
     marker.addListener('click', function() {
       marker.setAnimation(google.maps.Animation.BOUNCE);
@@ -37,6 +33,12 @@ var ViewModel = function(){
         marker.setAnimation(null);
       }, 750);
       infoWindow.open(map, marker);
+    });
+  });
+
+    // create infoWindow for museum marker
+    var infoWindow = new google.maps.InfoWindow({
+      content: this.contentString
     });
 
     // Create an observable for filter museum
@@ -47,15 +49,13 @@ var ViewModel = function(){
       return ko.utils.arrayFilter(self.museumList(), function(museum) {
         var visible = museum.name.toLowerCase().indexOf(self.museumFilter().toLowerCase()) != -1;
         if (visible) {
-          museumItem.marker.setVisible(visible);
+          museum.marker.setVisible(visible);
         } else {
-          museumItem.marker.setVisible(false);
+          museum.marker.setVisible(false);
         }
         return visible;
       });
     });
-  });
-
 }
 
 // define global variables used within initMap function
